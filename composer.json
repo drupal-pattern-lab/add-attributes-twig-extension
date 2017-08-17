@@ -1,0 +1,15 @@
+{
+    "name": "drupal-pattern-lab/add-attributes-twig-extension",
+    "description": "Twig function that allows addition of attributes that can be rendered in both Drupal and Pattern Lab",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jeff Tomlinson",
+            "email": "jeff@fourkitchens.com"
+        },
+        {
+            "name": "Evan Willhite",
+            "email": "evan@fourkitchens.com"
+        }
+    ]
+}
