@@ -6,7 +6,11 @@
 
 use Drupal\Core\Template\Attribute;
 
-$function = new Twig_SimpleFunction('add_attributes', function ($context, $additional_attributes = []) {
+$function = new Twig_SimpleFunction('add_attributes', function ($context, $additional_attributes = [], $attribute_type = 'attributes') {
+  if (!in_array($attribute_type, ['attributes','title_attributes','content_attributes'])) {
+    throw new Exception('Invalid attribute type.');
+  }
+
   if (class_exists('Drupal')) {
     $attributes = new Attribute();
 
@@ -35,21 +39,21 @@ $function = new Twig_SimpleFunction('add_attributes', function ($context, $addit
           }
         }
         // Merge additional attribute values with existing ones.
-        if ($context['attributes']->offsetExists($key)) {
-          $existing_attribute = $context['attributes']->offsetGet($key)->value();
+        if ($context[$attribute_type]->offsetExists($key)) {
+          $existing_attribute = $context[$attribute_type]->offsetGet($key)->value();
           $value = array_merge($existing_attribute, $value);
         }
 
-        $context['attributes']->setAttribute($key, $value);
+        $context[$attribute_type]->setAttribute($key, $value);
       }
     }
 
     // Set all attributes.
-    foreach($context['attributes'] as $key => $value) {
+    foreach($context[$attribute_type] as $key => $value) {
       $attributes->setAttribute($key, $value);
       // Remove this attribute from context so it doesn't filter down to child
       // elements.
-      $context['attributes']->removeAttribute($key);
+      $context[$attribute_type]->removeAttribute($key);
     }
 
     return $attributes;
