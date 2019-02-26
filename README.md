@@ -21,3 +21,17 @@ Can also be used with the [bem function](https://github.com/drupal-pattern-lab/b
 
 <div {{ add_attributes(additional_attributes) }}></div>
 ```
+
+Can also be used with title_attributes or content_attributes:
+```
+{% set additional_title_attributes = {
+  "class": ["foo__title", "bar__title"],
+} %}
+{% set additional_content_attributes = {
+  "class": ["foo__content", "bar__content"],
+} %}
+
+<h2 {{ add_attributes(additional_title_attributes,'title_attributes') }}></h2>
+<div {{ add_attributes(additional_content_attributes,'content_attributes') }}>
+
+```
